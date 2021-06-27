@@ -1,0 +1,23 @@
+.banner{
+    height:300px;
+    width:100%;
+
+}
+.banner-text{
+    color:red;
+    top:50%;
+    left:50%;
+    position:absolute;
+    text-transform:uppercase;
+
+
+}
+.card-body{
+    background-color:blue;
+
+    color:violet;
+
+}
+.row{
+    background-color:red;
+}

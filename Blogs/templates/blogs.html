@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'blogstyle.css' %}">
+    <title>Title</title>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="banner">
+
+                <div>
+
+                    <img src="{% static 'blogbanner.jpg' %}" style="width:1250px;">
+                </div>
+
+<!--                <div class="banner-text">-->
+<!--                    <center><h1>Blogs</h1></center>-->
+<!--                </div>-->
+            </div>
+            <nav class="col-md-6 col-12 tm-nav">
+                    <ul class="tm-nav-ul">
+                        {% if user.is_authenticated %}
+                        <h2><li>Hai {{user.username}}</li></h2>
+                        <h5><li class="tm-nav-li"><a href="accounts/logout" class="tm-nav-link">logout</a></li></h5>
+                        {% else %}
+                        <h5><li><a href="accounts/register" class="tm-nav-link">register</a></li></h5>
+									<h5><li class="tm-nav-li"><a href="accounts/login" class="tm-nav-link">login</a></li></h5>
+                        {% endif %}
+                    </ul>
+                </nav>
+        </div>
+    </div>
+    <div class="row">
+
+        <div class="col-md-7">
+
+            <h3 style="color:blue";>Add Blogs Here</h3>
+
+            <form method="post">
+                {% csrf_token %}
+                <input type="text" name="title" placeholder="Enter title"><br>
+                <textarea name="desc" placeholder="Enter description"></textarea><br>
+                <input type="date" name="date" placeholder="Enter date"><br>
+
+                <input type="submit" value="submit"><br>
+            </form>
+        </div>
+        <div class="col-md-5">
+            <h3 style="color:red;">View Blogs</h3>
+
+            {% for i in obj1 %}
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">{{i.title}}</h4>
+                    <pre style="color:red;">{{i.desc}}</pre>
+                    <p>{{i.date}}</p><br>
+                    <a class="btn btn-success" href="">Done</a>
+                    <a class="btn btn-danger" href="{% url 'delete' i.id %}">Delete</a>
+                    <a class="btn btn-warning" href="{% url 'update' i.id %}">Update</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+</html>
